@@ -1,6 +1,7 @@
 This is a simple Java web application that uses OAuth 2.0 and accesses the Google Sheets API.
-* Create an OAuth 2.0 credential at https://console.developers.google.com
-* Add "http://localhost:8080/sheets-web/callback" as an Authorized Redirect URL for your credential
+
+* Create web application credentials https://console.developers.google.com/projectselector/apis/credentials
+* Add "http://localhost:8080/sheets-web/callback" to the list of Authorized redirect URIs for your credential
 * Edit "DemoAuth.java" and replace {YOUR_CLIENT_ID} and {YOUR_CLIENT_SECRET}
 * Run 'gradle jettyRunWar'
 * Open 'http://localhost:8080/sheets-web'
