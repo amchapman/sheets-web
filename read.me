@@ -1,3 +1,25 @@
-1. This content should be in a folder named "sheets-web"
-2. Run "gradle jettyRunWar" from the command line in this folder
-3. Open http://localhost:8080/sheets-web
+This is a simple Java web application that uses OAuth 2.0 and accesses the Google Sheets API.
+* Create an OAuth 2.0 credential at https://console.developers.google.com
+* Add "http://localhost:8080/sheets-web/callback" as an Authorized Redirect URL for your credential
+* Edit "DemoAuth.java" and replace {YOUR_CLIENT_ID} and {YOUR_CLIENT_SECRET}
+* Run 'gradle jettyRunWar'
+* Open 'http://localhost:8080/sheets-web'
+
+This Java example is based off the following two Google examples written in PHP
+* https://developers.google.com/apps-script/guides/rest/quickstart/php
+* https://developers.google.com/api-client-library/php/auth/web-app
+
+Here is how OAuth 2.0 has been implemented
+1. DemoServlet creates a GoogleAuthorizationCodeFlow using the DemoAuth utility class
+2. DemoServlet checks a session variable and sees that authorization has not been completed
+3. DemoServlet redirects to Google for approval
+4. Google asks for approval and then redirects back to DemoCallbackServlet passing a code
+5. DemoCallbackServlet creates a GoogleAuthorizationCodeFlow using DemoAuth
+6. DemoCallbackServlet creates a TokenResponse using the code passed to it by Google
+7. DemoCallbackServlet creates a Credential using the TokenResponse and saves it to the flow
+8. DemoCallbackServlet redirects to DemoServlet
+9. DemoServlet creates a GoogleAuthorizationCodeFlow using the DemoAuth utility class
+10. DemoServlet checks a session variable and sees that authorization has been completed
+11. DemoServlet reads the Credential from the flow
+12. DemoServlet uses the Credential to create a Sheets client
+
